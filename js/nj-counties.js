@@ -28,11 +28,7 @@ function init() {
 var geoStyle = function(data) {
     // let legisId = data.properties.legis_id;
     var cty = data.properties.county;
-    console.log("cty", cty);
-    console.log(NJDistricts);
-    console.log("data", data);
     var scoreColor = NJDistricts[cty].color;
-    console.log(scoreColor);
 
     return {
         fillColor: scoreColor,
