@@ -33,7 +33,7 @@ var geoStyle = function(data) {
     return {
         fillColor: scoreColor,
         weight: 3,
-        opacity: 0.9,
+        opacity: 0.8,
         color: "#fefefe",
         dashArray: "0",
         fillOpacity: 1
