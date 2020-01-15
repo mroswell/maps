@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>New Jersey County Map</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://scorecard.njlcv.org">
+    <meta property="og:description" content="New Jersey County Map">
+    <meta property="og:title" content="New Jersey County Map">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Nunito+Sans|Roboto+Condenseda|Roboto:400,700,900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico"/>
+    <link rel="stylesheet" href="css/senate-style-2019.css">
+    <link rel="stylesheet" href="css/style.css?11">
+    <link rel="stylesheet" href="css/overrides.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" crossorigin=""/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="./js/vendor/leaflet.js" crossorigin=""></script>
+    <script src="https://kit.fontawesome.com/349ec13eb2.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.js" integrity="sha256-3kxM38zABJY692X6ViIlt9FsBimhck0ZlsLtuA7R+0Y=" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="scorecard-header">
+	<section class="header-container">
+		<h2>New Jersey County Map</h2>
+	</section>
+</header>
+<div class="feature-wrapper pt-5 pb-5 mt-5 mt-lg-0">
+    <!-- wides go inside wrapper but outside outer and inner -->
+    <div class="container" id="top">
+        <div class="row" id="sidebar-and-map">
+            <!--<div id="sidebar" class="default-text"></div>-->
+            <div id="map-and-legend">
+            	<div id="map-legend">
+	            	<p class="map-legend">Legend:
+		            	<span class="legend-item yes">Yes</span>
+						<span class="legend-item no">No</span>
+
+	            	</p>
+            	</div>
+		<div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /container -->
+<!--<script type="text/javascript" src="js/vendor/tabletop.min.js"></script>-->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+<script type="text/javascript" src="maps/New_Jersey_Counties.js"></script>
+<script type="text/javascript" src="js/nj-counties.js"></script>
+
+<script id="welcome-map-help" type="text/x-handlebars-template">
+    <div class="entry-default-text" style="padding-top:14px; display:block;">
+        <div id=default-text class="body">
+            <!--<p id='close2' class='close'>&times;</p><br>-->
+            <h4 style="text-align: center">Welcome</h4>
+            <ul>
+                <li><strong>Mouseover</strong> a county for details.</li>
+                <li><strong>Click a county</strong> to freeze the info panel.</li>
+                <li><strong>Zoom</strong> into selected district to see street detail.</li>
+                <li><strong>Click the 'x'</strong> to dismiss the info panel and re-enable mouseover function.
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</script>
+
+<script id="senate-template-infobox" type="text/x-handlebars-template">
+    <div class="entry parent" style="background-color: {{ scoreColor }}; z-index:100; height:300px" >
+        <div class="infobox child">
+            <button type='button' id='close' class='close'>&times;</button>
+            <br>
+            <p class="child-header" >
+                <br>{{{county}}}: ({{status}})
+            </p>
+
+            <div class="container">
+                <div class="row justify-content-center mb-3 mt-1">
+                    <div class="col-5"  style="text-align:center">
+                        Status <br> <span class="score" style="background-color: {{ scoreColor }}">{{{score}}}%</span>
+                    </div>
+                </div>
+            </div>
+
+      <br>
+        </div>
+    </div>
+</script>
+<script>
+    Handlebars.registerHelper('if_eq', function(a, b, opts) {
+        if(typeof a !== "undefined") {
+            if (typeof a === "string") {
+                a = a.trim();
+            }
+        }
+        if (a === b) {
+            return opts.fn(this);
+        } else if (a==="A") {
+            return '<span class="circle">&nbsp;&nbsp;Abstained&nbsp;&nbsp;</span>'
+        } else if (a==="NV") {
+            return '<span class="circle"><span class="circle">&nbsp;&nbsp;Not Voting&nbsp;&nbsp;</span></span>'
+        } else if (a==="EX") {
+            return '<span class="circle">&nbsp;&nbsp;Excused&nbsp;&nbsp;</span>'
+        } else if (a==="NIO") {
+            return '<span class="circle wide105">&nbsp;&nbsp;Not in Office&nbsp;&nbsp;</span>'
+        } else {
+            return opts.inverse(this);
+        }
+    });
+</script>
+</body>
+</html>
